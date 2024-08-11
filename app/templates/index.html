@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Model Interface</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI Model Interface</h1>
+        </header>
+        <main>
+            <form id="inputForm">
+                <div class="input-group">
+                    <input type="text" id="inputText" placeholder="Enter text">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+            <div id="result-container">
+                <p id="result"></p>
+            </div>
+        </main>
+        <footer>
+            <p>By Alejandro Barrera & Maria Fernanda Cabrales</p>
+        </footer>
+    </div>
+    <script>
+        document.getElementById('inputForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const inputText = document.getElementById('inputText').value;
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ input: inputText })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').textContent = data.output;
+            });
+        });
+    </script>
+</body>
+</html>

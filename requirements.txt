@@ -1,0 +1,5 @@
+flask
+pandas
+os
+langchain_core
+langchain_groq
